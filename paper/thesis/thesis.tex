@@ -1,0 +1,70 @@
+\documentclass[a4paper,12pt,oneside]{ujbook}
+\usepackage{amsmath,amssymb,ascmac,bm}
+%\usepackage[dvips]{graphicx}
+\usepackage{subfigure}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{thesis}
+\usepackage[dvipdfmx]{graphicx}
+
+\begin{document}
+
+\title{
+	＜令和元年度専攻科研究論文＞\\
+	畳み込み辞書学習を用いた\\クラス分類の検討\\　\\
+	指導教官: 黒木祥光 教授\\
+	機械・電気システム工学専攻 A3519 平川智也
+}
+\date{}
+\maketitle
+
+\tableofcontents
+
+\chapter{はじめに}
+\input{thesis-1.tex}
+
+\chapter{畳み込み辞書学習}
+\input{thesis-2.tex}
+
+\chapter{錐制約部分空間法}
+\input{thesis-3.tex}
+
+\chapter{提案法}
+\input{thesis-4.tex}
+
+\chapter{実験}
+\input{thesis-5.tex}
+
+\chapter{むすび}
+\input{thesis-6.tex}
+
+\input{thesis-ack.tex}
+
+\begin{thebibliography}{9}
+\bibitem{fast-csc}
+	Bristow, Hilton, Anders Eriksson, and Simon Lucey，”Fast convolutional sparse coding，”Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2013.
+	
+\bibitem{super-res}
+	Gu, Shuhang, et al. ”Convolutional sparse coding for image super-resolution，” Proceedings of the IEEE International Conference on Computer Vision. 2015.
+
+\bibitem{sub}
+	福井和広，”部分空間法の今昔 (いまむかし)(下): 最近の技術動向: 相互部分空間法への拡張とその応用事例，” 情報処理 49.6: 680-685，2008.
+	
+\bibitem{nmf}
+	亀岡弘和，”非負値行列因子分解，” 計測と制御 51.9: 835-844，2012.
+	
+\bibitem{cone-sub}
+	小林匠, and 大津展之，”パターン識別のための錐制約部分空間法，” 電子情報通信学会論文誌 D 92.1: 104-111，2009.
+	
+\bibitem{optimize-csc}
+	Bristow, Hilton, and Simon Lucey，”Optimization methods for convolutional sparse coding，” arXiv preprint arXiv:1406.2407 ，2014.
+	
+\bibitem{admm}
+	Boyd, Stephen, et al，”Distributed optimization and statistical learning via the alternating direction method of multipliers，” Foundations and Trends® in Machine learning 3.1: 1-122，2011.
+	
+\bibitem{sporco}
+	Wohlberg, Brendt，”SPORCO: A Python package for standard and convolutional sparse representations，” Proceedings of the 15th Python in Science Conference, Austin, TX, USA. 2017.
+
+\end{thebibliography}
+
+\end{document}

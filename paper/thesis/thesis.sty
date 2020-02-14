@@ -1,0 +1,191 @@
+\def\Hline{\noalign{\hrule height 0.4mm}}
+\def\RN#1{\uppercase\expandafter{\romannumeral#1}}
+\textwidth 155mm
+%\oddsidemargin 15mm
+%\evensidemargin 15mm
+\oddsidemargin 10mm
+\evensidemargin 10mm
+\topmargin 0mm
+\headsep 15mm
+\def\baselinestretch{1.5}
+\def\arraystretch{0.75}
+\def\labelenumi{(\theenumi)}
+\def\topfraction{.9}
+\def\textfrsaction{.1}
+\def\floatpagefraction{.9}
+
+\def\fnum@table{表 \thetable}
+\def\fnum@figure{図 \thefigure}
+
+\def\shizen_picture{\vspace{70mm}}
+\def\moji_picture{\vspace{95mm}}
+
+\def\@chapapp#1{第#1章}
+
+
+\def\@makechapterhead#1{%
+ %\vspace*{50pt}
+ { \parindent 0pt \raggedright%
+   \ifnum \c@secnumdepth >\m@ne
+    \huge\bf \@chapapp{\thechapter}\par%
+ \vskip 20pt
+ \fi
+ \Huge \bf #1\par 
+ \nobreak \vskip 40pt } }
+
+\def\@makeschapterhead#1{%
+ %\vspace*{50pt}
+ { \parindent 0pt \raggedright%
+ \Huge \bf #1\par 
+ \nobreak \vskip 40pt } }
+
+\def\chapter{%
+ \cleardoublepage
+ \thispagestyle{headings}
+ \global\@topnum\z@
+ \@afterindenttrue \secdef\@chapter\@schapter} 
+
+\def\@chapter[#1]#2{%
+ \ifnum \c@secnumdepth >\m@ne%
+  \refstepcounter{chapter}%
+  \typeout{\@chapapp{\thechapter}}%
+  \addcontentsline{toc}{chapter}{%
+   \protect \numberline{\thechapter}#1}
+ \else
+  \addcontentsline{toc}{chapter}{#1}
+ \fi
+ \chaptermark{#1}%
+ \addtocontents{lof}{\protect\addvspace{10pt}}%
+ \addtocontents{lot}{\protect\addvspace{10pt}}%
+ \if@twocolumn%
+  \@topnewpage[\@makechapterhead{#2}]%
+ \else
+  \@makechapterhead{#2}
+ \@afterheading
+ \fi} 
+
+\def\@schapter#1{%
+ \if@twocolumn
+  \@topnewpage[\@makeschapterhead{#1}]%
+ \else
+  \@makeschapterhead{#1} %
+ \@afterheading%
+ \fi}
+
+\def\ps@headings{%
+ \let\@mkboth=\markboth
+ \def\@evenfoot{}%
+ \def\@oddfoot{}%
+ \def\@evenhead{%
+  \underline{\hbox to \textwidth%
+   {{\bf \thepage}%
+    \hspace{15pt}\leftmark\hfil}}}%
+ \def\@oddhead{%
+  \underline{\hbox to \textwidth%
+   {\hfil\rightmark\hspace{15pt}\bf\thepage}}}%
+ \def\chaptermark##1{%
+  \markright{%
+   \ifnum \c@secnumdepth>\m@ne%
+    \@chapapp{\thechapter} \ \
+   \fi
+   ##1}%
+  {}}%
+% \def\sectionmark##1{%
+%  \markright{%
+%   \ifnum \c@secnumdepth>\z@
+%    \thesection. \ \ %
+%  \fi
+%  ##1}}%
+}%
+
+
+\def\thebibliography#1{\chapter*{参考文献\@mkboth
+ {参考文献}{参考文献}}\list
+ {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+ \advance\leftmargin\labelsep
+ \usecounter{enumi}}
+ \def\newblock{\hskip .11em plus .33em minus .07em}
+ \sloppy
+ \sfcode`\.=1000\relax
+\addcontentsline{toc}{chapter}{参考文献}
+}
+\let\endthebibliography=\endlist
+
+\def\tableenv{\def\@setstrut{\setbox\strutbox=%
+ \hbox{\vrule \@height .72\baselineskip \@depth .28\baselineskip \@width\z@}}
+ \small\sevmin\cntrm
+ \let\center=\Center}%% \ifphototype\let\tt=\sevtt\else\fi
+
+\pagestyle{headings}
+
+\def\ack{\chapter*{謝辞\@mkboth
+ {謝辞}{謝辞}}%
+\addcontentsline{toc}{chapter}{謝辞}
+}
+
+
+%% from "citesort.sty", with a little modified
+\newcount\@minsofar
+\newcount\@min
+\newcount\@cite@temp
+\def\@citex[#1]#2{%
+\if@filesw \immediate \write \@auxout {\string \citation {#2}}\fi
+\@tempcntb\m@ne \let\@h@ld\relax \def\@citea{}%
+\@min\m@ne%
+\@cite{%
+  \@for \@citeb:=#2\do {\@ifundefined {b@\@citeb}%
+    {\@h@ld\@citea\@tempcntb\m@ne{\bf ?}%
+    \@warning {Citation `\@citeb ' on page \thepage \space undefined}}%
+{\@minsofar\z@ \@for \@scan@cites:=#2\do {%
+  \@ifundefined{b@\@scan@cites}%
+    {\@cite@temp\m@ne}
+    {\@cite@temp\number\csname b@\@scan@cites \endcsname \relax}%
+\ifnum\@cite@temp > \@min% select the next one to list
+    \ifnum\@minsofar = \z@
+      \@minsofar\number\@cite@temp
+      \edef\@scan@copy{\@scan@cites}\else
+    \ifnum\@cite@temp < \@minsofar
+      \@minsofar\number\@cite@temp
+      \edef\@scan@copy{\@scan@cites}\fi\fi\fi}\@tempcnta\@min
+  \ifnum\@minsofar > \z@ % some more
+    \advance\@tempcnta\@ne
+    \@min\@minsofar
+    \ifnum\@tempcnta=\@minsofar %   Number follows previous--hold on to it
+      \ifx\@h@ld\relax
+        \edef \@h@ld{\@citea\csname b@\@scan@copy\endcsname}%
+      \else \edef\@h@ld{\ifmmode{]～[}\else]～[\fi\csname b@\@scan@copy\endcsname}%
+      \fi
+    \else \@h@ld\@citea\csname b@\@scan@copy\endcsname
+          \let\@h@ld\relax
+  \fi % no more
+\fi}%
+\def\@citea{],\penalty\@highpenalty\,[}}\@h@ld}{#1}}
+%% end of citesort.sty
+
+% fleqn.sty  9-Mar-87
+\def\[{\relax\ifmmode\@badmath\else\begin{trivlist}\item[]\leavevmode
+ \hbox to\linewidth\bgroup$ \displaystyle
+ \hskip\mathindent\bgroup\fi}
+\def\]{\relax\ifmmode \egroup $\hfil \egroup \end{trivlist}\else \@badmath \fi}
+\def\equation{\refstepcounter{equation}\trivlist \item[]\leavevmode
+ \hbox to\linewidth\bgroup $ \displaystyle
+\hskip\mathindent}
+
+\def\endequation{$\hfil \displaywidth\linewidth\@eqnnum\egroup \endtrivlist}
+\def\eqnarray{\stepcounter{equation}\let\@currentlabel=\theequation
+\global\@eqnswtrue
+\global\@eqcnt\z@\tabskip\mathindent\let\\=\@eqncr
+\abovedisplayskip\topsep\ifvmode\advance\abovedisplayskip\partopsep\fi
+\belowdisplayskip\abovedisplayskip
+\belowdisplayshortskip\abovedisplayskip
+\abovedisplayshortskip\abovedisplayskip
+$$\halign to
+\linewidth\bgroup\@eqnsel\hskip\@centering$\displaystyle\tabskip\z@
+ {##}$&\global\@eqcnt\@ne \hskip \arraycolsep \hfil${##}$\hfil
+ &\global\@eqcnt\tw@ \hskip \arraycolsep $\displaystyle{##}$\hfil 
+ \tabskip\@centering&\llap{##}\tabskip\z@\cr}
+\def\endeqnarray{\@@eqncr\egroup
+ \global\advance\c@equation\m@ne$$\global\@ignoretrue }
+\newdimen\mathindent 
+\mathindent = \leftmargini
+
